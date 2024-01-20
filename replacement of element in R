@@ -1,0 +1,7 @@
+
+> # sample with replacement
+> sample(x, replace = TRUE)
+[1] 15 17 13  9  5 15 11 15  1
+> # if we simply pass in a positive number n, it will sample
+> # from 1:n without replacement
+> sample(10)
