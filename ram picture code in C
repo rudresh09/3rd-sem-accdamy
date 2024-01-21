@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main() {
+    FILE *fp;
+    int width = 10;
+    int height = 5;
+    int max_value = 255;
+
+    // Open the file for writing
+    fp = fopen("output.pgm", "wb");
+
+    // Write the PGM header
+    fprintf(fp, "P5\n%d %d\n%d\n", width, height, max_value);
+
+    // Write the pixel data
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            fputc(max_value, fp); // Write a white pixel
+        }
+    }
+
+    // Close the file
+    fclose(fp);
+
+    return 0;
+}
