@@ -1,0 +1,13 @@
+#include <stdio.h>
+
+// Function to print Jai Shree Ram sequence
+void jaiShreeRamSequence() {
+    printf("Jai ");
+    printf("Shree ");
+    printf("Ram\n");
+}
+
+int main() {
+    jaiShreeRamSequence();
+    return 0;
+}
