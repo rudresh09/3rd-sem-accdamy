@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int makeDecision(int input) {
+    if (input > 10) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+int main() {
+    int input, decision;
+
+    printf("Enter a number: ");
+    scanf("%d", &input);
+
+    decision = makeDecision(input);
+
+    if (decision == 1) {
+        printf("The decision is to do something.\n");
+    } else {
+        printf("The decision is to do nothing.\n");
+    }
+
+    return 0;
+}
