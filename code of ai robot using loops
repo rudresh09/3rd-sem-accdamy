@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+// Assume the robot has 8 infrared sensors for detecting obstacles
+#define NUM_SENSORS 8
+
+// Assume the sensor readings are in the range [0, 100], where 0 means no obstacle
+// and 100 means maximum obstacle distance
+int sensors[NUM_SENSORS];
+
+void avoid_obstacles() {
+  int i;
+  int min_distance = 100; // Initialize to maximum distance
+  int turn_direction = 1;  // 1 for left, -1 for right
+
+  // Check all sensors
+  for (i = 0; i < NUM_SENSORS; i++) {
+    // If this sensor sees an obstacle closer than the current minimum distance
+    if (sensors[i] < min_distance) {
+      // Update the minimum distance and the turn direction
+      min_distance = sensors[i];
+      turn_direction = (i < 4) ? 1 : -1;
+    }
+  }
+
+  // Turn left or right depending on the turn direction
+  if (turn_direction == 1) {
+    printf("Turning left...\n");
+  } else {
+    printf("Turning right...\n");
+  }
+}
+
+int main() {
+  // Initialize sensor readings to some values
+  sensors[0] = 50;
+  sensors[1] = 75;
+  sensors[2] = 100;
+  sensors[3] = 25;
+  sensors[4] = 15;
+  sensors[5] = 100;
+  sensors[6] = 100;
+  sensors[7] = 100;
+
+  avoid_obstacles();
+
+  return 0;
+}
