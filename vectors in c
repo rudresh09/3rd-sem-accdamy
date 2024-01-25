@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Create a structure for the vector
+typedef struct Vector {
+    int size;
+    int* data;
+} Vector;
+
+// Create a function to initialize the vector
+Vector createVector(int size) {
+    Vector newVector;
+    newVector.size = size;
+    newVector.data = (int*)malloc(size * sizeof(int));
+    return newVector;
+}
+
+// Create a function to add an element to the vector
+void addElement(Vector* v, int index, int element) {
+    if (index >= 0 && index < v->size) {
+        v->data[index] = element;
+    } else {
+        printf("Index out of range\n");
+    }
+}
+
+// Create a function to print the vector
+void printVector(Vector v) {
+    for (int i = 0; i < v.size; i++) {
+        printf("%d ", v.data[i]);
+    }
+    printf("\n");
+}
+
+// Create a function to delete the vector
+void deleteVector(Vector* v) {
+    free(v->data);
+    v->size = 0;
+}
+
+int main() {
+    Vector v = createVector(5);
+
+    addElement(&v, 0, 10);
+    addElement(&v, 1, 20);
+    addElement(&v, 2, 30);
+    addElement(&v, 3, 40);
+    addElement(&v, 4, 50);
+
+    printVector(v);
+
+    deleteVector(&v);
+
+    return 0;
+}
