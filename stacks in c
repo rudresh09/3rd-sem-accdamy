@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Create a structure for the stack
+typedef struct Stack {
+    int top;
+    int capacity;
+    int* data;
+} Stack;
+
+// Create a function to initialize the stack
+Stack createStack(int capacity) {
+    Stack newStack;
+    newStack.top = -1;
+    newStack.capacity = capacity;
+    newStack.data = (int*)malloc(capacity * sizeof(int));
+    return newStack;
+}
+
+// Create a function to check if the stack is empty
+int isEmpty(Stack s) {
+    return s.top == -1;
+}
+
+// Create a function to check if the stack is full
+int isFull(Stack s) {
+    return s.top == s.capacity - 1;
+}
+
+// Create a function to push an element to the stack
+void push(Stack* s, int element) {
+    if (isFull(*s)) {
+        printf("Stack is full\n");
+    } else {
+        s->data[++s->top] = element;
+    }
+}
+
+// Create a function to pop an element from the stack
+void pop(Stack* s) {
+    if (isEmpty(*s)) {
+        printf("Stack is empty\n");
+    } else {
+        printf("Popped element: %d\n", s->data[s->top--]);
+    }
+}
+
+// Create a function to peek the top element of the stack
+void peek(Stack s) {
+    if (isEmpty(s)) {
+        printf("Stack is empty\n");
+    } else {
+        printf("Top element is: %d\n", s->data[s->top]);
+    }
+}
+
+// Create a function to delete the stack
+void deleteStack(Stack* s) {
+    free(s->data);
+    s->capacity = 0;
+    s->top = -1;
+}
+
+int main() {
+    Stack s = createStack(5);
+
+    push(&s, 10);
+    push(&s, 20);
+    push(&s, 30);
+    push(&s, 40);
+    push(&s, 50);
+
+    peek(s);
+    pop(&s);
+    peek(s);
+
+    deleteStack(&s);
+
+    return 0;
+}
