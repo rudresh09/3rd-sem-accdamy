@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 1000
+
+struct stack {
+    int data[MAX];
+    int top;
+};
+
+struct queue {
+    struct stack s1, s2;
+};
+
+void enqueue(struct queue *q, int value) {
+    if (q->s2.top == MAX - 1) {
+        printf("Queue is full\n");
+        return;
+    }
+    q->s2.data[++q->s2.top] = value;
+}
+
+int dequeue(struct queue *q) {
+    if (q->s1.top == -1 && q->s2.top == -1) {
+        printf("Queue is empty\n");
+        return -1;
+    }
+    if (q->s1.top == -1) {
+        while (q->s2.top != -1) {
+            q->s1.data[q->s1.top] = q->s2.data[q->s2.top--];
+        }
+    }
+    return q->s1.data[q->s1.top--];
+}
+
+int main() {
+    struct queue q;
+    q.s1.top = q.s2.top = -1;
+    enqueue(&q, 1);
+    enqueue(&q, 2);
+    enqueue(&q, 3);
+    printf("%d\n", dequeue(&q));
+    printf("%d\n", dequeue(&q));
+    printf("%d\n", dequeue(&q));
+    return 0;
+}
