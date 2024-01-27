@@ -1,0 +1,109 @@
+public class Matrix {
+    private final int rows;
+    private final int cols;
+    private final double[][] data;
+
+    public Matrix(int rows, int cols) {
+        this.rows = rows;
+        this.cols = cols;
+        this.data = new double[rows][cols];
+    }
+
+    public Matrix(double[][] data) {
+        this.rows = data.length;
+        this.cols = data[0].length;
+        this.data = data;
+    }
+
+    public static Matrix add(Matrix a, Matrix b) {
+        if (a.rows != b.rows || a.cols != b.cols) {
+            throw new IllegalArgumentException("Matrices must have the same dimensions");
+        }
+
+        Matrix result = new Matrix(a.rows, a.cols);
+
+        for (int i = 0; i < a.rows; i++) {
+            for (int j = 0; j < a.cols; j++) {
+                result.data[i][j] = a.data[i][j] + b.data[i][j];
+            }
+        }
+
+        return result;
+    }
+
+    public static Matrix subtract(Matrix a, Matrix b) {
+        if (a.rows != b.rows || a.cols != b.cols) {
+            throw new IllegalArgumentException("Matrices must have the same dimensions");
+        }
+
+        Matrix result = new Matrix(a.rows, a.cols);
+
+        for (int i = 0; i < a.rows; i++) {
+            for (int j = 0; j < a.cols; j++) {
+                result.data[i][j] = a.data[i][j] - b.data[i][j];
+            }
+        }
+
+        return result;
+    }
+
+    public static Matrix multiply(Matrix a, Matrix b) {
+        if (a.cols != b.rows) {
+            throw new IllegalArgumentException("Number of columns in the first matrix must be equal to the number of rows in the second matrix");
+        }
+
+        Matrix result = new Matrix(a.rows, b.cols);
+
+        for (int i = 0; i < a.rows; i++) {
+            for (int j = 0; j < b.cols; j++) {
+                double sum = 0;
+                for (int k = 0; k < a.cols; k++) {
+                    sum += a.data[i][k] * b.data[k][j];
+                }
+                result.data[i][j] = sum;
+            }
+        }
+
+        return result;
+    }
+
+    public static Matrix transpose(Matrix a) {
+        Matrix result = new Matrix(a.cols, a.rows);
+
+        for (int i = 0; i < a.rows; i++) {
+            for (int j = 0; j < a.cols; j++) {
+                result.data[j][i] = a.data[i][j];
+            }
+        }
+
+        return result;
+    }
+
+    public static double determinant(Matrix a) {
+        if (!a.isSquare()) {
+            throw new IllegalArgumentException("Matrix must be square");
+        }
+
+        if (a.rows == 1) {
+            return a.data[0][0];
+        }
+
+        double det = 0;
+        boolean[] usedRows = new boolean[a.rows];
+        boolean[] usedCols = new boolean[a.cols];
+
+        for (int i = 0; i < a.rows; i++) {
+            Matrix subMatrix = subMatrix(a, 0, i, usedRows, usedCols);
+            double sign = 1 - 2 * (i % 2);
+            det += sign * a.data[i][0] * determinant(subMatrix);
+        }
+
+        return det;
+    }
+
+    private static Matrix subMatrix(Matrix a, int excludeRow, int excludeCol, boolean[] usedRows, boolean[] usedCols) {
+        int rows = a.rows - 1;
+        int cols = a.cols - 1;
+        double[][] data = new double[rows][cols];
+
+        for (int i = 0, i1
