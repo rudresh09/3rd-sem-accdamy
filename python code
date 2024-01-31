@@ -1,0 +1,34 @@
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+from keras.models import Sequential
+from keras.layers import Dense, LSTM
+from sklearn.model_selection import train_test_split
+
+# Load the dataset
+data = pd.read_csv('solar_plate_data.csv')
+
+# Preprocess the data
+scaler = MinMaxScaler(feature_range=(0, 1))
+scaled_data = scaler.fit_transform(data['temperature'].values.reshape(-1, 1))
+
+# Prepare the training data
+train_size = int(len(scaled_data) * 0.8)
+train_data = scaled_data[:train_size]
+
+# Prepare the test data
+test_data = scaled_data[train_size:]
+
+# Prepare the input and output vectors
+def create_dataset(dataset, look_back=1):
+    X, Y = [], []
+    for i in range(len(dataset) - look_back - 1):
+        X.append(dataset[i:(i + look_back), 0])
+        Y.append(dataset[i + look_back, 0])
+    return np.array(X), np.array(Y)
+
+look_back = 10
+X_train, y_train = create_dataset(train_data, look_back)
+X_test, y_test = create_dataset(test_data, look_back)
+
+# Reshape the
