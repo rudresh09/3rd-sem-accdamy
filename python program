@@ -1,0 +1,14 @@
+import math
+# angle in degrees
+angle_degrees = 30
+
+# convert angle to radians
+angle_radians = math.radians(angle_degrees)
+
+# calculate sine and cosine
+sin_value = math.sin(angle_radians)
+cos_value = math.cos(angle_radians)
+
+# print results
+print(f"Sine of {angle_degrees} degrees: {sin_value}")
+print(f"Cosine of {angle_degrees} degrees: {cos_value}")
