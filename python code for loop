@@ -1,0 +1,24 @@
+def calculate_price(age):
+    if age < 4:
+        return 0
+    elif age < 18:
+        return 25
+    elif age < 65:
+        return 40
+    elif age >= 65:
+        return 20
+
+def get_ages():
+    ages = []
+    while True:
+        age = input("\nPlease enter your age (or 'quit' to finish): ")
+        if age == 'quit':
+            break
+        else:
+            ages.append(int(age))
+    return ages
+
+ages = get_ages()
+for age in ages:
+    price = calculate_price(age)
+    print(f"Your admission price is {price}!")
