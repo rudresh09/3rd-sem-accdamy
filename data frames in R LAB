@@ -1,0 +1,28 @@
+# Given vectors
+vector1 <- c("A", "B", "C", "D", "E", "F")
+vector2 <- c(1, 2, 3, 4, 2, 6)
+
+# Create a data frame
+df <- data.frame(Column1 = vector1, Column2 = vector2)
+
+# Display the data frame
+print("Original Data Frame:")
+print(df)
+
+# Find duplicated elements
+duplicates <- df[duplicated(df), ]
+
+# Display duplicated elements
+if (nrow(duplicates) > 0) {
+  print("Duplicated Elements:")
+  print(duplicates)
+} else {
+  print("No duplicated elements found.")
+}
+
+# Find unique rows
+unique_rows <- unique(df)
+
+# Display unique rows
+print("Unique Rows:")
+print(unique_rows)
