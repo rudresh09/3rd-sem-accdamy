@@ -1,0 +1,24 @@
+# Load the mtcars dataset
+data(mtcars)
+a) What is the total number of observations and variables in the dataset?
+> total_observations <- nrow(mtcars)
+> total_variables <- ncol(mtcars)
+> cat("Total number of observations:", total_observations, "\n")
+Total number of observations: 32
+> cat("Total number of variables:", total_variables, "\n\n")
+Total number of variables: 11
+b) Find the car with the largest hp and the least hp using suitable functions
+> car_max_hp <- mtcars[which.max(mtcars$hp), "hp"]
+> car_min_hp <- mtcars[which.min(mtcars$hp), "hp"]
+> cat("Car with the largest hp:", car_max_hp, "\n")
+Car with the largest hp: 335
+> cat("Car with the least hp:", car_min_hp, "\n\n")
+Car with the least hp: 52
+c) Plot histogram / density for each variable and determine whether continuous variables are normally
+distributed or not. If not, what is their skewness?
+> par(mfrow=c(4, 3), mar=c(2, 2, 1, 1))
+> for (i in 1:total_variables) {
++ hist(mtcars[,i], main=names(mtcars)[i], col="skyblue", border="white", xlab="", ylab="", xlim=c(
+min(mtcars[,i]), max(mtcars[,i])))
++ lines(density(mtcars[,i]), col="red", lwd=2)
++ }
