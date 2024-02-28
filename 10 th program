@@ -1,0 +1,19 @@
+d) What is the average difference of gross horse power(hp) between automobiles with 3 and 4 number
+of cylinders(cyl)? Also determine the difference in their standard deviations.
+> hp_diff_3_vs_4 <- mean(mtcars[mtcars$cyl == 3, "hp"]) - mean(mtcars[mtcars$cyl == 4, "hp"])
+> sd_diff_3_vs_4 <- sd(mtcars[mtcars$cyl == 3, "hp"]) - sd(mtcars[mtcars$cyl == 4, "hp"])
+> cat("Average difference of hp between 3 and 4 cylinders:", hp_diff_3_vs_4, "\n")
+Average difference of hp between 3 and 4 cylinders: NaN
+> cat("Difference in their standard deviations:", sd_diff_3_vs_4, "\n\n")
+Difference in their standard deviations: NA
+e) Which pair of variables has the highest Pearson correlation?
+> cor_matrix <- cor(mtcars)
+> cor_max <- which(cor_matrix == max(cor_matrix[upper.tri(cor_matrix)], na.rm = TRUE), arr.ind
+= TRUE)
+> var1 <- rownames(cor_matrix)[cor_max[1,1]]
+> var2 <- colnames(cor_matrix)[cor_max[1,2]]
+> correlation <- cor_matrix[cor_max]
+> cat("Pair of variables with the highest Pearson correlation:", var1, "and", var2, "\n")
+Pair of variables with the highest Pearson correlation: disp and cyl
+> cat("Correlation coefficient:", correlation, "\n")
+Correlation coefficient: 0.9020329 0.9020329
